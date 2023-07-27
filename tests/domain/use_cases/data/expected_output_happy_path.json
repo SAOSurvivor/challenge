@@ -1,0 +1,60 @@
+{
+  "shipments": [
+    {
+      "tracking_number": "TN12345678",
+      "carrier": "DHL",
+      "sender_address": {
+        "street": "Street",
+        "house_no": "1",
+        "city": "Berlin",
+        "pin_code": "10115",
+        "country": "Germany"
+      },
+      "receiver_address": {
+        "street": "Street",
+        "house_no": "10",
+        "city": "Paris",
+        "pin_code": "75001",
+        "country": "France"
+      },
+      "article_name": "Laptop",
+      "article_quantity": 1,
+      "article_price": 800.0,
+      "sku": "LP123",
+      "status": "in-transit"
+    },
+    {
+      "article_name": "Mouse",
+      "article_price": 25.0,
+      "article_quantity": 1,
+      "carrier": "DHL",
+      "receiver_address": {
+          "city": "Paris",
+          "country": "France",
+          "house_no": "10",
+          "pin_code": "75001",
+          "street": "Street"
+      },
+      "sender_address": {
+          "city": "Berlin",
+          "country": "Germany",
+          "house_no": "1",
+          "pin_code": "10115",
+          "street": "Street"
+      },
+      "sku": "MO456",
+      "status": "in-transit",
+      "tracking_number": "TN12345678"
+        }
+  ],
+  "destination_weather": {
+    "observation_time": "2023-06-10 21:55",
+    "timezone": "Europe/Paris",
+    "precipitation": 0.0,
+    "wind_speed": 1.54,
+    "wind_direction": "west-southwest",
+    "temperature": 22.8,
+    "cloud_coverage": 95,
+    "description": "Overcast clouds"
+  }
+}

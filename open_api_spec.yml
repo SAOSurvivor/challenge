@@ -1,0 +1,110 @@
+swagger: "2.0"
+info:
+  title: Shipment Tracking API
+  version: 1.0.0
+paths:
+  /shipments/{carrier}/{tracking_number}:
+    get:
+      summary: Retrieve shipments as well as weather information of the receiver address, by carrier and tracking number
+      parameters:
+        - name: carrier
+          in: path
+          required: true
+          type: string
+          description: The carrier of the shipment
+        - name: tracking_number
+          in: path
+          required: true
+          type: string
+          description: The tracking number of the shipment
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/ShipmentWeatherResponse"
+definitions:
+  ShipmentWeatherResponse:
+    type: object
+    properties:
+      destination_weather:
+        $ref: "#/definitions/Weather"
+      shipments:
+        type: array
+        items:
+          $ref: "#/definitions/Shipment"
+
+  Weather:
+    type: object
+    properties:
+      cloud_coverage:
+        type: integer
+        example: 83
+      description:
+        type: string
+        example: Broken clouds
+      observation_time:
+        type: string
+        example: "2023-06-12 01:16"
+      precipitation:
+        type: number
+        example: 0.0
+      temperature:
+        type: number
+        example: 18.9
+      timezone:
+        type: string
+        example: Europe/Paris
+      wind_direction:
+        type: string
+        example: northwest
+      wind_speed:
+        type: number
+        example: 2.57
+
+  Shipment:
+    type: object
+    properties:
+      article_name:
+        type: string
+        example: Laptop
+      article_price:
+        type: number
+        example: 800.0
+      article_quantity:
+        type: integer
+        example: 1
+      carrier:
+        type: string
+        example: DHL
+      receiver_address:
+        $ref: "#/definitions/Address"
+      sender_address:
+        $ref: "#/definitions/Address"
+      sku:
+        type: string
+        example: LP123
+      status:
+        type: string
+        example: in-transit
+      tracking_number:
+        type: string
+        example: TN12345678
+
+  Address:
+    type: object
+    properties:
+      city:
+        type: string
+        example: Paris
+      country:
+        type: string
+        example: France
+      house_no:
+        type: string
+        example: "10"
+      pin_code:
+        type: string
+        example: "75001"
+      street:
+        type: string
+        example: Street

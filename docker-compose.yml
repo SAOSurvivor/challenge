@@ -1,0 +1,53 @@
+version: "3.4"
+
+services:
+  python-flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    labels:
+      - challenge
+    command:
+      [
+        "/home/challenge/wait-for-postgres.sh",
+        "db:5432",
+        "--",
+        "python",
+        "app.py"
+      ]
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      PGHOST: db
+      PGDATABASE: tracking
+      PGUSER: tracking
+      PGPASSWORD: tracking
+      WEATHER_BIT_URL: https://api.weatherbit.io/v2.0
+      WEATHER_BIT_API_KEY: 28125208438448319cc16204ae447b57
+
+  db:
+    image: "mdillon/postgis:11-alpine"
+    labels:
+      - challenge
+    volumes:
+      - type: volume
+        source: pg-data
+        target: /var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "tracking", "-d", "tracking"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    environment:
+      POSTGRES_DB: tracking
+      POSTGRES_USER: tracking
+      POSTGRES_PASSWORD: tracking
+
+volumes:
+  pg-data:
